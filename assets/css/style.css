@@ -20,7 +20,10 @@ h4 {
 }
 
 body {
-    background: url("/Users/davidpohlman/Desktop/pennlps/assignment/Word-Guess-Game/assets/images/gotheader.jpg");
+    background-image: url(http://desktop-backgrounds-org.s3.amazonaws.com/game-thrones-movies_5.jpg);
+background-repeat: no-repeat;
+height: auto;
+width: auto;
 }
 
 .guessesContainer {
