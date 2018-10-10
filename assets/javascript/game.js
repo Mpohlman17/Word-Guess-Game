@@ -73,6 +73,7 @@ var winScore = 0;
 document.addEventListener("keyup", function (event) {
     if (gameStatus) {
         letterCheck(event);
+        displayHint();
     } else {
         //if game has not been started then this will initate the game
         restartGame();
@@ -104,7 +105,6 @@ function correctLetterCheck(letter) {
     }
 }
 
-
 function correctLetter(letter) {
     if (answerArray.indexOf(letter.key.toUpperCase()) < 0) {
         addCorrectLetter(letter);
@@ -120,17 +120,13 @@ function addCorrectLetter(letter) {
             currentWordDisplay();
             //reduce letters left remaining to guess by 1
             lettersRemaining--;
+            console.log("letters Remaning: " + lettersRemaining);
             //if letters left to guess are equal to 0 
             if (lettersRemaining === 0) {
-
-                displayWinCount();
                 winScore++;
-                currentWordDisplay();
-
-                displayHint();
-
+                displayWinCount();
                 alert("YOU WON!!!");
-                answerArray[i] = "_";
+                restartGame();
 
 
             }
@@ -149,8 +145,8 @@ var inputRemaining = [8];
 function incorrectLetter(letter) {
 
     if (incorrectInputEntered.indexOf(letter.key.toUpperCase()) < 0) {
-        addIncorrectLetter(letter);
         inputRemaining--;
+        addIncorrectLetter(letter);
         guessesDisplay.textContent = inputRemaining;
     }
 }
@@ -163,6 +159,7 @@ function addIncorrectLetter(letter) {
     if (inputRemaining === 0) {
         displayAnswer();
         restartGame();
+        currentWordDisplay();
         alert("you are out of guesses please try again!!")
     }
 
@@ -199,7 +196,7 @@ function displayHint() {
 // display activeCharacterDisplay for users current
 function currentWordDisplay() {
     var activeCharacterDisplay = document.querySelector("#activeCharacterDisplay");
-    activeCharacterDisplay.textContent = answerArray;
+    activeCharacterDisplay.textContent = answerArray.join(" ");
 }
 // console.log("answerArray functiong?")
 // display correctAnswerDisplay
@@ -243,9 +240,9 @@ function restartGame() {
     currentWordDisplay();
     // letters remaining for current game
     displayWinCount();
-    winScore++;
+    // winScore++;
     // letters guessed
-    inputRemaining = 8;
+    inputRemaining = [8];
     // number of guesses left
     incorrectInputEntered = [];
     displayInputMade();
